@@ -27,8 +27,8 @@ class AnnonceType extends ApplicationType
             ->add('profilImage', UrlType::class, $this->getConfiguration("URL de l'image principale", "Donnez l'adresse d'une image qui donne vraiment envie"))
             ->add('introduction', TextType::class, $this->getConfiguration("Introdction", "Donnez une description global"))
             ->add('contenu', TextareaType::class, $this->getConfiguration("Description détaillée", "Tapez une description qui donne vraiment envie de venir chez vous"))
-            ->add('chambres', IntegerType::class, $this->getConfiguration("Nombre de chambre", "Le nombre de chambres disponnible"))
-            ->add('prix', MoneyType::class, $this->getConfiguation("Prix par nuit", "Indiquez le prix que vous voulez pour une nuit"))
+            ->add('chambres', IntegerType::class, $this->getConfiguration("Année de la voiture", "Le nombre de chambres disponnible"))
+            ->add('prix', MoneyType::class, $this->getConfiguration("Prix par nuit", "Indiquez le prix que vous voulez pour une nuit"))
             ->add('images', CollectionType::class,
         [
             'entry_type' => ImagesType::class,

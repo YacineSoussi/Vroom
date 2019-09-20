@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class UserController extends AbstractController

@@ -2,17 +2,19 @@
 
 namespace App\Controller;
 
-use App\Entity\Annonce;
 use App\Entity\Image;
+use App\Entity\Annonce;
 use App\Form\AnnonceType;
 use Doctrine\Common\Annotations;
 use App\Repository\AnnonceRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\Repository\RepositoryFactory;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AnnonceController extends AbstractController
@@ -33,7 +35,8 @@ class AnnonceController extends AbstractController
     /**
      * Permet de créer une annonce
      * @Route("/annonces/new", name="annonces_create")
-     *’ 
+     * @IsGranted("ROLE_USER")
+     * 
      * @return Response
      */
     public function create(Request $request, ObjectManager $manager)
@@ -52,7 +55,7 @@ class AnnonceController extends AbstractController
                     $image->setAnnonce($annonce);
                     $manager->persist($image);
                 }
-                    $annonce->setAuthor($this->getUser());
+                    $annonce->setAuteur(($this->getUser()));
 
             $manager->persist($annonce);
             $manager->flush();
@@ -77,6 +80,7 @@ class AnnonceController extends AbstractController
      * Permet d'afficher le formulaire d'edition
      *
      * @Route("/annonces/{adresse}/edit", name="annonces_edit")
+     * @Security("is_granted('ROLE_USER') and user === annonce.getAuteur()", message="Cette annonce ne vous appartient pas, vous ne pouvez pas la modifier")
      * 
      * @return Response
      */
@@ -111,6 +115,26 @@ class AnnonceController extends AbstractController
         return $this->render('annonce/show.html.twig', [
             'annonce' => $annonce
         ]);
+    }
+
+    /**
+     * Permet de supprimer une annonce
+     * 
+     * @Route("/annonces/{adresse}/delete", name="annonces_delete")
+     * @Security("is_granted('ROLE_USER') and user == annonce.getAuteur()", message="Vous n'avez pas le droit d'accéder à cette ressource")
+     *
+     * @param Annonce $annonce
+     * @param ObjectManager $manager
+     * @return Response
+     */
+    public function delete(Annonce $annonce, ObjectManager $manager) {
+        $manager->remove($annonce);
+        $manager->flush();
+        $this->addFlash(
+            'success',
+            "L'annonce <strong>{$annonce->getTitle()}</strong> a bien été supprimée !"
+        );
+        return $this->redirectToRoute("annonces_index");
     }
 
   

@@ -18,6 +18,10 @@
                 par nuit
             </p>
             <a href="" class="btn btn-primary">Reserver</a>
+                    {% if app.user and app.user == annonce.auteur %}
+                      <a href="{{ path('annonces_edit', {'adresse': annonce.adresse}) }}" class="btn btn-secondary">Modifier l'annonce</a>
+                      <a href="{{ path('annonces_delete', {'adresse': annonce.adresse})}}" class="btn btn-danger">supprimer l'annonce</a>
+        {% endif %}
         </div>
     </div>
 
@@ -63,11 +67,11 @@
                 {% set a = annonce.auteur %}
                 <div class="row">
                     <div class="col-3"></div>
-                    <a href="{{ path('user_show', {'adress': a.adresse}) }}">
+                    <a href="{{ path('user_show', {'adresse': a.adresse}) }}">
                     <img src="{{a.avatar}}" class="avatar avatar-medium" alt="avatar de {{a.firstName}}"></a>
                 </div>
                 <div class="col">
-                <a href="{{ path('user_show', {'adress': a.adresse}) }}">
+                <a href="{{ path('user_show', {'adresse': a.adresse}) }}">
                     <h3>
                         {{a.fullName}}
                     </h3>
