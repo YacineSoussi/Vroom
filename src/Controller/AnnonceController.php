@@ -52,6 +52,8 @@ class AnnonceController extends AbstractController
                     $image->setAnnonce($annonce);
                     $manager->persist($image);
                 }
+                    $annonce->setAuthor($this->getUser());
+
             $manager->persist($annonce);
             $manager->flush();
 
@@ -78,14 +80,14 @@ class AnnonceController extends AbstractController
      * 
      * @return Response
      */
-    public function edit($adresse, Request $request, AnnonceRepository $repo)
+    public function edit(Request $request, Annonce $annonce)
     {
-        $annonce = new Annonce();
+        
         
         $form = $this->createForm(AnnonceType::class, $annonce);
         $form->handleRequest($request);
 
-        $annonce = $repo->findOneByAdresse($adresse);
+        
 
         return $this->render('annonce/edit.html.twig', [
             'form' => $form->createView(),
@@ -99,12 +101,12 @@ class AnnonceController extends AbstractController
      * 
      * @Route("/annonces/{adresse}", name="annonces_show")
      * 
-     * @return Response
+     *  
      */
     public function show($adresse, AnnonceRepository $repo)
     {
         // Je recupère l'annonce qui correspond a l'adresse 
-         $annonce = $repo->findOneByAdresse($adresse);
+        $annonce = $repo->findOneByAdresse($adresse);
 
         return $this->render('annonce/show.html.twig', [
             'annonce' => $annonce

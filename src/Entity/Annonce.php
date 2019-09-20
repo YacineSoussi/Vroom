@@ -74,13 +74,19 @@ class Annonce
      */
     private $images;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="annonces")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $auteur;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
     }
 
     /**
-     * Permet d'initialiser le slug !
+     * Permet d'initialiser l'adresse !
      *    
      * @ORM\PrePersist
      * @ORM\PreUpdate
@@ -210,6 +216,18 @@ class Annonce
                 $image->setAnnonce(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAuteur(): ?User
+    {
+        return $this->auteur;
+    }
+
+    public function setAuteur(?User $auteur): self
+    {
+        $this->auteur = $auteur;
 
         return $this;
     }

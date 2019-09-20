@@ -1,0 +1,24 @@
+{% set url = path('annonces_show', {'adresse': annonce.adresse}) %}
+            <div class="col-md-4">
+                <div class="card pg-light mb-3">
+                    <div class="card header text-center">
+                        {{ annonce.chambres }} chambres,
+                        <strong>{{ annonce.prix}} / nuit</strong>
+                        <br>
+                        <small>Pas encore noté</small>
+
+                    </div>
+                    <a href="{{ url }}">
+                    <img src="{{annonce.profilImage}}" alt="Image de l'appartement" class="src" style="height: 200px; width:100%; display:block">
+                    </a>
+                    <div class="card-body">
+                    <a href="{{ url }}">
+                        <h4 class="card-title">{{annonce.title}}</h4>
+                        </a>
+                    </div>
+                    <p class="card-text">
+                        {{annonce.introduction}}
+                    </p>
+                    <a href="{{ url }}" class="btn btn-secondary">En savoir plus</a>
+                </div>
+            </div>
