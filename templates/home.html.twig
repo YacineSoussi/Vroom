@@ -25,8 +25,8 @@
             
 
         <h2 classh="mt-3 mb-4">Nos propriétaires qui donnent envie </h2>
-
-        <div class="row">
+            {% for user in user %}
+               <div class="row">
             <div class="col-4">
             
                 <div class="card border-secondary mb-3">
@@ -35,46 +35,18 @@
                         
                         <hr>
                         <div class="card-text">
-                            <img src="http://placehold.it/64x64" alt="" class="float-left mr-3">
+                            <img src="{{user.avatar}}" alt="" class="float-left mr-3">
                             <p class>Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum, eveniet.
                             </p>
                             <a href="#" class="btn btn-success float-right">En savoir plus</a>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>  
+            {% endfor %}
+       
         
-            <div class="col-4">
-                <div class="card border-secondary mb-3">
-                    <div class="card-body">
-                        <h4 class="card-title">
-                            Yacine Soussi</h4>
-                        <hr>
-                        <div class="card-text">
-                            <img src="http://placehold.it/64x64" alt="" class="float-left mr-3">
-                            <p class>Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum, eveniet.
-                            </p>
-                            <a href="#" class="btn btn-success float-right">En savoir plus</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
- 
-            <div class="col-4">
-                <div class="card border-secondary mb-3">
-                    <div class="card-body">
-                        <h4 class="card-title">
-                            Yacine Soussi</h4>
-                        <hr>
-                        <div class="card-text">
-                            <img src="http://placehold.it/64x64" alt="" class="float-left mr-3">
-                            <p class>Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum, eveniet.
-                            </p>
-                            <a href="#" class="btn btn-success float-right">En savoir plus</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          
         
    
     {% endblock %}

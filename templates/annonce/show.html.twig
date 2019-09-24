@@ -15,7 +15,7 @@
                     </strong>
                 pour
                 <strong>{{annonce.prix | number_format(2, ',', ' ')}}&euro;</strong>
-                par jour
+                par jour 
             </p>
             <a href="{{ path('reservation_create', {'adresse': annonce.adresse})}}" class="btn btn-primary">Reserver</a>
                     {% if app.user and app.user == annonce.auteur %}
