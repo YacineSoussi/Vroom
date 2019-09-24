@@ -1,0 +1,49 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %} Administration des annonces !{% endblock %}
+
+{% block body %}
+
+
+
+<div class="container-fluid">
+    <h1 class="my-5">Gestion des annonces</h1>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Auteur</th>
+                <th class="text-center">Réservations</th>
+                
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for annonces in annonce %}                
+            
+            <tr>
+                <td>{{annonces.id}}</td>
+                <td>{{annonces.title}}</td>
+                <td>
+                    <img src="{{annonces.auteur.avatar}}" alt="Avatar de {{annonces.auteur.fullName}}" class="avatar avatar-micro mr-2">
+                    {{annonces.auteur.fullName}}
+                </td>
+                <td class="text-center">
+                    <span class="badge badge-primary rounded">{{annonces.reservations | length}}</span>
+                </td>
+                
+                <td>
+                    <a href="{{ path('admin_annonces_edit', {'id': annonces.id}) }}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
+                    <a href="{{ path('admin_annonces_delete', {'id': annonces.id}) }}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+   
+</div>
+{% endblock %}

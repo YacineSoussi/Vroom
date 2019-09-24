@@ -11,13 +11,13 @@
             <h1>{{annonce.title}}</h1>
             <p>{{annonce.introduction}}</p>
             <p class="h2">
-                <strong>{{annonce.chambres}}
-                    chambres</strong>
+                <strong> année {{annonce.chambres}}
+                    </strong>
                 pour
                 <strong>{{annonce.prix | number_format(2, ',', ' ')}}&euro;</strong>
-                par nuit
+                par jour
             </p>
-            <a href="" class="btn btn-primary">Reserver</a>
+            <a href="{{ path('reservation_create', {'adresse': annonce.adresse})}}" class="btn btn-primary">Reserver</a>
                     {% if app.user and app.user == annonce.auteur %}
                       <a href="{{ path('annonces_edit', {'adresse': annonce.adresse}) }}" class="btn btn-secondary">Modifier l'annonce</a>
                       <a href="{{ path('annonces_delete', {'adresse': annonce.adresse})}}" class="btn btn-danger">supprimer l'annonce</a>
@@ -59,10 +59,25 @@
                         </a>
                     </div>
                 </div>
+                            <hr>
 
+                            {% if annonce.commentaires|length > 0  %}
+                                    <h2 class="mb-3"> Commentaires</h2>
+                                    {% for commentaire in annonce.commentaires %}
+                                        <div class="bg-light rounded mb-3 py-3 px-3">
+                                        <strong>{{ commentaire.auteur.fullName}}</strong> a dit:
+                                        <blockquote>
+                                                {{commentaire.contenu}}
+                                        </blockquote>
+                                        <strong>Note par {{commentaire.auteur.fullName}} : </strong>
+                                        {% include 'partiels/note.html.twig' with {'note': commentaire.note} %}
+                                        </div>
+                                    {% endfor %}
+                            {% else %}
+                                    <h2>Cette annonce n'a pas encore de commentaire.</h2>
+                            {% endif %}
+                            
             </div>
-
-
             <div class="col">
                 {% set a = annonce.auteur %}
                 <div class="row">

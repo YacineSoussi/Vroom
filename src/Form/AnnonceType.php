@@ -28,12 +28,13 @@ class AnnonceType extends ApplicationType
             ->add('introduction', TextType::class, $this->getConfiguration("Introdction", "Donnez une description global"))
             ->add('contenu', TextareaType::class, $this->getConfiguration("Description détaillée", "Tapez une description qui donne vraiment envie de venir chez vous"))
             ->add('chambres', IntegerType::class, $this->getConfiguration("Année de la voiture", "Le nombre de chambres disponnible"))
-            ->add('prix', MoneyType::class, $this->getConfiguration("Prix par nuit", "Indiquez le prix que vous voulez pour une nuit"))
+            ->add('prix', MoneyType::class, $this->getConfiguration("Prix par jour", "Indiquez le prix que vous voulez pour une nuit"))
             ->add('images', CollectionType::class,
         [
             'entry_type' => ImagesType::class,
             'allow_add' => true,
-            'allow_delete' => true
+            'allow_delete' => true,
+            'required' => false
         ]);
         }
      

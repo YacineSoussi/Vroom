@@ -80,9 +80,21 @@ class Annonce
      */
     private $auteur;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Reservation", mappedBy="annonce")
+     */
+    private $reservations;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Commentaire", mappedBy="Annonce", orphanRemoval=true)
+     */
+    private $commentaires;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
+        $this->reservations = new ArrayCollection();
+        $this->commentaires = new ArrayCollection();
     }
 
     /**
@@ -98,6 +110,19 @@ class Annonce
                 $slugify = new Slugify();
                 $this->adresse = ($slugify->slugify($this->title));
         }
+    }
+
+     /**
+     * Permet de récupérer le commentaire d'un auteur par rapport à une annonce
+     *
+     * @param User $auteur
+     * @return Commentaire|null
+     */
+    public function getCommentFromAuteur(User $auteur){
+        foreach($this->commentaires as $commentaire) {
+            if($commentaire->getAuteur() === $auteur) return $commentaire;
+        }
+        return null;
     }
 
     public function getId(): ?int
@@ -228,6 +253,68 @@ class Annonce
     public function setAuteur(?User $auteur): self
     {
         $this->auteur = $auteur;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Reservation[]
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
+    public function addReservation(Reservation $reservation): self
+    {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations[] = $reservation;
+            $reservation->setAnnonce($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservation(Reservation $reservation): self
+    {
+        if ($this->reservations->contains($reservation)) {
+            $this->reservations->removeElement($reservation);
+            // set the owning side to null (unless already changed)
+            if ($reservation->getAnnonce() === $this) {
+                $reservation->setAnnonce(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Commentaire[]
+     */
+    public function getCommentaires(): Collection
+    {
+        return $this->commentaires;
+    }
+
+    public function addCommentaire(Commentaire $commentaire): self
+    {
+        if (!$this->commentaires->contains($commentaire)) {
+            $this->commentaires[] = $commentaire;
+            $commentaire->setAnnonce($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaire(Commentaire $commentaire): self
+    {
+        if ($this->commentaires->contains($commentaire)) {
+            $this->commentaires->removeElement($commentaire);
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getAnnonce() === $this) {
+                $commentaire->setAnnonce(null);
+            }
+        }
 
         return $this;
     }

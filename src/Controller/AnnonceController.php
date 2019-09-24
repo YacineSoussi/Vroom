@@ -43,12 +43,26 @@ class AnnonceController extends AbstractController
     {
         $annonce  = new Annonce();
         
+        $image1 = new Image();
+        $image2 = new Image();
+        $image3 = new Image();
+
+        $image1->setUrl('http://placehold.it/150x200')
+                ->setLegend('Titre 1');
+        $annonce->addImage($image1);
+
+        $image2->setUrl('')
+                ->setLegend('Titre 1');
+        $annonce->addImage($image2);
+
+        $image3->setUrl('')
+                ->setLegend('Titre 1');
+        $annonce->addImage($image3);
+
 
         $form = $this->createForm(AnnonceType::class, $annonce);
         $form->handleRequest($request);
 
-        
-        
 
         if ($form->isSubmitted() && $form->isValid()) {
                 foreach($annonce->getImages() as $image){

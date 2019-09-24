@@ -2,10 +2,16 @@
             <div class="col-md-4">
                 <div class="card pg-light mb-3">
                     <div class="card header text-center">
-                        {{ annonce.chambres }} chambres,
-                        <strong>{{ annonce.prix}} / nuit</strong>
+                        {{ annonce.chambres }} année,
+                        <strong>{{ annonce.prix}} / jour</strong>
                         <br>
-                        <small>Pas encore noté</small>
+                        {% if annonce.commentaires|length > 0 %}
+                                <small>{{annonce.commentaires|length }} commentaires</small>
+                        {% else %}
+                            <small>Pas encore de commentaire</small>
+                        {% endif %}
+                        
+                        
 
                     </div>
                     <a href="{{ url }}">
