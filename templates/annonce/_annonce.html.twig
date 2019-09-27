@@ -2,8 +2,8 @@
             <div class="col-md-4">
                 <div class="card pg-light mb-3">
                     <div class="card header text-center">
-                        {{ annonce.chambres }} année,
-                        <strong>{{ annonce.prix}} / jour</strong>
+                       année {{ annonce.chambres }}
+                        <strong>{{ annonce.prix}}&euro; / jour</strong>
                         <br>
                         {% if annonce.commentaires|length > 0 %}
                                 <small>{{annonce.commentaires|length }} commentaires</small>

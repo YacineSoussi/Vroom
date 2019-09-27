@@ -23,7 +23,7 @@ class AnnonceType extends ApplicationType
     {
         $builder
             ->add('title', TextType::class, $this->getConfiguration("titre", "Tapez le titre de votre Annonce"))
-            ->add('adresse', TextType::class, $this->getConfiguration("Adresse web", "Tapez l'adresse web (automatique)",[ 'required' => false]))          
+                  
             ->add('profilImage', UrlType::class, $this->getConfiguration("URL de l'image principale", "Donnez l'adresse d'une image qui donne vraiment envie"))
             ->add('introduction', TextType::class, $this->getConfiguration("Introdction", "Donnez une description global"))
             ->add('contenu', TextareaType::class, $this->getConfiguration("Description détaillée", "Tapez une description qui donne vraiment envie de venir chez vous"))
@@ -32,9 +32,7 @@ class AnnonceType extends ApplicationType
             ->add('images', CollectionType::class,
         [
             'entry_type' => ImagesType::class,
-            'allow_add' => true,
-            'allow_delete' => true,
-            'required' => false
+            'allow_add' => true
         ]);
         }
      

@@ -13,7 +13,7 @@
             <hr class="my-4">
             <p>Vous êtes conducteurs ? Et vous voulez voir qu'est-ce que vous pourrez conduire pour votre prochain déplacement ?</p>
             <p class="lead">
-                <a class="btn btn-primary btn-lg" href="" role="button">Voir nos annonces</a>
+                <a class="btn btn-primary btn-lg" href="{{path('annonces_index')}}" role="button">Voir nos annonces</a>
             </p>
         </div>
 
@@ -22,31 +22,29 @@
         {% for annonce in annonces %}
         {% include "annonce/_annonce.html.twig" %}
         {% endfor %}
+        </div>
             
 
-        <h2 classh="mt-3 mb-4">Nos propriétaires qui donnent envie </h2>
+        <h2 classh="mt-3 mb-4">Voici notre membre le plus ancien  </h2>
             {% for user in user %}
-               <div class="row">
+               <div class="row center">
             <div class="col-4">
             
                 <div class="card border-secondary mb-3">
                     <div class="card-body">
-                        <h4 class="card-title">
-                        
+                        <h4 class="card-title">{{user.fullName}}
+                        </div>
                         <hr>
                         <div class="card-text">
-                            <img src="{{user.avatar}}" alt="" class="float-left mr-3">
+                            <img src="{{user.avatar}}" alt="" class="float-left mr-3 avatar">
                             <p class>Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum, eveniet.
                             </p>
                             <a href="#" class="btn btn-success float-right">En savoir plus</a>
-                        </div>
+                            </div>
+                        
                     </div>
                 </div>
             </div>  
+            </div>
             {% endfor %}
-       
-        
-          
-        
-   
     {% endblock %}

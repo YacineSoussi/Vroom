@@ -17,9 +17,7 @@ class HomeController extends Controller{
      */
     public function home(AnnonceRepository $repo, UserRepository $repository){
 
-        $user = $repository->findby(['id' => '1',
-                                    'id' => '2',
-                                    'id' => '3']);
+        $user = $repository->findby(['id' => '1']);
         $annonce = $repo->findBy(['chambres' => '2019']);
 
         return $this->render('home.html.twig', [

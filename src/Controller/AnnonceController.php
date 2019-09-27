@@ -42,13 +42,12 @@ class AnnonceController extends AbstractController
     public function create(Request $request, ObjectManager $manager)
     {
         $annonce  = new Annonce();
-        
         $image1 = new Image();
         $image2 = new Image();
         $image3 = new Image();
 
-        $image1->setUrl('http://placehold.it/150x200')
-                ->setLegend('Titre 1');
+        $image1->setUrl('')
+                ->setLegend('');
         $annonce->addImage($image1);
 
         $image2->setUrl('')
@@ -58,8 +57,7 @@ class AnnonceController extends AbstractController
         $image3->setUrl('')
                 ->setLegend('Titre 1');
         $annonce->addImage($image3);
-
-
+         
         $form = $this->createForm(AnnonceType::class, $annonce);
         $form->handleRequest($request);
 
@@ -99,13 +97,9 @@ class AnnonceController extends AbstractController
      * @return Response
      */
     public function edit(Request $request, Annonce $annonce)
-    {
-        
-        
+    {      
         $form = $this->createForm(AnnonceType::class, $annonce);
         $form->handleRequest($request);
-
-        
 
         return $this->render('annonce/edit.html.twig', [
             'form' => $form->createView(),
