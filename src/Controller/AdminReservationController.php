@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Entity\Reservation;
 use App\Form\AdminReservationType;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ReservationRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -29,7 +30,7 @@ class AdminReservationController extends Controller
      * 
      * @return Response
      */
-    public function edit(Reservation $reservation, Request $request, ObjectManager $manager) {    
+    public function edit(Reservation $reservation, Request $request, EntityManagerInterface $manager) {    
 
         $form = $this->createForm(AdminReservationType::class, $reservation);
 
@@ -57,7 +58,7 @@ class AdminReservationController extends Controller
      *
      * @return Response
      */
-    public function delete(Reservation $reservation, ObjectManager $manager) {
+    public function delete(Reservation $reservation, EntityManagerInterface $manager) {
 
         $manager->remove($reservation);
         $manager->flush();

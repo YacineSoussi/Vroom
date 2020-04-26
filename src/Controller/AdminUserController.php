@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Form\AdminUserType;
 use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,7 +34,7 @@ class AdminUserController extends AbstractController
      * @param User $user
      * @return Response
      */
-    public function edit(User $user, Request $request, ObjectManager $manager) {
+    public function edit(User $user, Request $request, EntityManagerInterface $manager) {
 
         $form = $this->createForm(AdminUserType::class, $user);
 
@@ -62,7 +63,7 @@ class AdminUserController extends AbstractController
      * @param ObjectManager $manager
      * @return Response
      */
-    public function delete(User $user, ObjectManager $manager) {
+    public function delete(User $user, EntityManagerInterface $manager) {
         if(count($user->getReservations()) > 0) {
             $this->addFlash(
                 'warning',

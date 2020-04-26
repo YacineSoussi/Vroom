@@ -8,6 +8,7 @@ use App\Form\AccountType;
 use App\Form\PasswordUpdateType;
 use App\Form\RegistrationType;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -51,7 +52,7 @@ class AccountController extends AbstractController
      * )
      * @return Response
      */
-    public function register(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder) {
+    public function register(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder) {
         $user = new User();
 
         $form = $this->createForm(RegistrationType::class, $user);
@@ -85,7 +86,7 @@ class AccountController extends AbstractController
      * 
      * @return Response
      */
-    public function profil(Request $request, ObjectManager $manager){
+    public function profil(Request $request, EntityManagerInterface $manager){
             $user = $this->getUser();
 
         $form = $this->createForm(AccountType::class, $user);

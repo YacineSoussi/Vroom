@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Entity\Commentaire;
 use App\Form\AdminCommentaireType;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\CommentaireRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -29,7 +30,7 @@ class AdminCommentaireController extends Controller
      * 
      * @return Response
      */
-    public function edit(Commentaire $commentaire, Request $request, ObjectManager $manager) {
+    public function edit(Commentaire $commentaire, Request $request, EntityManagerInterface $manager) {
 
         $form = $this->createForm(AdminCommentaireType::class, $commentaire);
 
@@ -57,7 +58,7 @@ class AdminCommentaireController extends Controller
      * @param ObjectManager $manager
      * @return Response
      */
-    public function delete(Commentaire $commentaire, ObjectManager $manager) {
+    public function delete(Commentaire $commentaire, EntityManagerInterface $manager) {
         $manager->remove($commentaire);
         $manager->flush();
         $this->addFlash(

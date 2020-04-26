@@ -1,9 +1,9 @@
 {% set url = path('annonces_show', {'adresse': annonce.adresse}) %}
             <div class="col-md-4">
                 <div class="card pg-light mb-3">
-                    <div class="card header text-center">
-                       année {{ annonce.chambres }}
-                        <strong>{{ annonce.prix}}&euro; / jour</strong>
+                    <div class="card-header text-center">
+                       année {{ annonce.chambres }} <br>
+                        <strong>{{ annonce.prix | number_format(2, ',', ' ')}}&euro; / jour</strong>
                         <br>
                         {% if annonce.commentaires|length > 0 %}
                                 <small>{{annonce.commentaires|length }} commentaires</small>
@@ -25,7 +25,7 @@
                     <p class="card-text">
                         {{annonce.introduction}}
                     </p>
-                    <a href="{{ url }}" class="btn btn-secondary">En savoir plus</a>
+                    <a href="{{ url }}" class="btn btn-primary">En savoir plus</a>
 
                     {% if app.user and app.user == annonce.auteur %}
                       <a href="{{ path('annonces_edit', {'adresse': annonce.adresse}) }}" class="btn btn-secondary">Modifier l'annonce</a>

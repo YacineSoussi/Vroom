@@ -1,13 +1,16 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Réservation numero
+{% block title %}Réservation
 {% endblock %}
 {% block body %}
 
     {% set annonce = reservation.annonce %}
     {% set auteur = annonce.auteur %}
-    <h1>Votre réservation numero
+
+    <div class="container">
+    <h1 class="my-5">Votre réservation numero
         {{reservation.id}}</h1>
+
     {% if app.request.query.get('Alert') %}
         <div class="alert alert-success">
             <h4 class="alert-heading">Bravo !</h4>
@@ -18,7 +21,7 @@
                 </strong>
                 pour l'annonce
                 <strong>{{annonce.title}}</strong>
-                a été pris en compte. Nous vous recontacterons pour vous confirmer la disponniblité et la validation de votre réservation ! Merci !
+                a été pris en compte. Nous vous recontacterons sous 24h pour vous confirmer la disponniblité et la validation de votre réservation ! Merci !
             </p>
         </div>
 
@@ -28,21 +31,21 @@
         <div class="col">
             <div class="alert alert-light">
                 <h2>détails</h2>
-                <div class="row">
+                <dl class="row">
                     <dt class="col-md-4">Numéro</dt>
                     <dd class="col-md-8">{{reservation.id}}</dd>
                     <dt class="col-md-4">Date d'arrivée</dt>
                     <dd class="col-md-8">{{reservation.startDate | date('d/m/Y')}}</dd>
                     <dt class="col-md-4">Date de départ</dt>
                     <dd class="col-md-8">{{reservation.endDate | date('d/m/Y')}}</dd>
-                    <dt class="col-md-4">Nombre de nuits</dt>
+                    <dt class="col-md-4">Nombre de jours</dt>
                     <dd class="col-md-8">{{reservation.duration}}</dd>
                     <dt class="col-md-4">Montant total</dt>
                     <dd class="col-md-8">{{reservation.Montant}}
                         &euro;</dd>
                     <dt class="col-md-4">Commentaire</dt>
                     <dd class="col-md-8">{{reservation.Commentaire}}</dd>
-                </div>
+                </dl>
                 <hr>
 
                 <h2 class="alert-heading">Le propriétaire</h2>
@@ -64,26 +67,11 @@
 
                     </div>
                 </div>
-            </div{{auteur.description|raw}}</div>
+            {{auteur.description|raw}}
 
-            <div class="col mt-3">
-                <h2 class="alert-heading">Votre location</h2>
-                <h4>
-                    <a href="{{ path('annonces_show', {'adresse': annonce.adresse})}}">{{annonce.title}}</a>
-                </h4>
-
-                <img src="{{annonce.profilImage}}" class="img-fluid" alt="">
-
-                <p>{{ annonce.contenu | raw}}</p>
-
-                <a href="{{ path('annonces_show', {'adresse': annonce.adresse})}}">
-                    <span class="badge badge-primary">
-                        Plus d'informations</span>
-                </a>
+            <a href="{{ path("user_show", {'adresse': auteur.adresse})}}" class="btn btn-primary mt-3">Plus d'informations sur {{auteur.firstName}}</a>
             </div>
 
-
-        </div>
         <div class="alert alert-light" id="comment">
             <h2 class="alert-heading">Votre avis compte !</h2>
             {% if date() > date(reservation.endDate) %}
@@ -100,5 +88,24 @@
                 <p>Vous ne pourrez pas noter cette annonce tant que votre voyage ne sera pas complet !</p>
             {% endif %}
         </div>
+    </div>
+            <div class="col">
+            <div class="alert alert-light">
+                <h2 class="alert-heading">Votre location</h2>
+                <h4>
+                    <a href="{{ path('annonces_show', {'adresse': annonce.adresse})}}">{{annonce.title}}</a>
+                </h4>
+
+                <img src="{{annonce.profilImage}}" class="img-fluid" alt="">
+
+                <p>{{ annonce.contenu | raw}}</p>
+
+                <a href="{{ path('annonces_show', {'adresse': annonce.adresse})}}">
+                    <span class="badge badge-primary mt-2">
+                        Plus d'informations</span>
+                </a>
+            </div>
+        </div>  
+    </div>
     </div>
 {% endblock %}

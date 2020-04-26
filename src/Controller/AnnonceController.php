@@ -7,14 +7,15 @@ use App\Entity\Annonce;
 use App\Form\AnnonceType;
 use Doctrine\Common\Annotations;
 use App\Repository\AnnonceRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\Repository\RepositoryFactory;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AnnonceController extends AbstractController
@@ -22,7 +23,7 @@ class AnnonceController extends AbstractController
     /**
      * @Route("/annonces", name="annonces_index")
      */
-    public function index(AnnonceRepository $repo, SessionInterface $session)
+    public function index(AnnonceRepository $repo)
     {
         // $repo = $this->getDoctrine()->getRepository(Annonce::class);
 
@@ -39,7 +40,7 @@ class AnnonceController extends AbstractController
      * 
      * @return Response
      */
-    public function create(Request $request, ObjectManager $manager)
+    public function create(Request $request, EntityManagerInterface $manager)
     {
         $annonce  = new Annonce();
         $image1 = new Image();
@@ -51,11 +52,11 @@ class AnnonceController extends AbstractController
         $annonce->addImage($image1);
 
         $image2->setUrl('')
-                ->setLegend('Titre 1');
+                ->setLegend('');
         $annonce->addImage($image2);
 
         $image3->setUrl('')
-                ->setLegend('Titre 1');
+                ->setLegend('');
         $annonce->addImage($image3);
          
         $form = $this->createForm(AnnonceType::class, $annonce);
@@ -135,7 +136,7 @@ class AnnonceController extends AbstractController
      * @param ObjectManager $manager
      * @return Response
      */
-    public function delete(Annonce $annonce, ObjectManager $manager) {
+    public function delete(Annonce $annonce, EntityManagerInterface $manager) {
         $manager->remove($annonce);
         $manager->flush();
         $this->addFlash(

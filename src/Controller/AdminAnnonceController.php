@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Annonce;
 use App\Form\AnnonceType;
 use App\Repository\AnnonceRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,7 +33,7 @@ class AdminAnnonceController extends AbstractController
      * @param Annonce $annonce
      * @return Response
      */
-    public function edit(Annonce $annonce, Request $request, ObjectManager $manager) {
+    public function edit(Annonce $annonce, Request $request, EntityManagerInterface $manager) {
         $form = $this->createForm(AnnonceType::class, $annonce);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
@@ -58,7 +59,7 @@ class AdminAnnonceController extends AbstractController
      * @param ObjectManager $manager
      * @return Response
      */
-    public function delete(Annonce $annonce, ObjectManager $manager) {
+    public function delete(Annonce $annonce, EntityManagerInterface $manager) {
         if(count($annonce->getReservations()) > 0) {
             $this->addFlash(
                 'warning',

@@ -25,7 +25,7 @@ class Image
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=10, minMessage="Le titre de l'image doit faire au moins 10 caractères")
+     * @Assert\Length(min=3, minMessage="Le titre de l'image doit faire au moins 3 caractères")
      */
     private $legend;
 

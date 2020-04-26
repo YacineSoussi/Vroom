@@ -8,6 +8,7 @@ use App\Entity\Commentaire;
 use App\Entity\Reservation;
 use App\Form\CommentaireType;
 use App\Form\ReservationType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,7 +22,7 @@ class ReservationController extends AbstractController
      * @Route("/annonces/{adresse}/reservation", name="reservation_create")
      * @IsGranted("ROLE_USER")
      */
-    public function Reservation(Annonce $annonce, Request $request, ObjectManager $manager)
+    public function Reservation(Annonce $annonce, Request $request, EntityManagerInterface $manager)
     {
         $reservation = new Reservation();
         $form = $this->createForm(ReservationType::class, $reservation);
@@ -55,7 +56,7 @@ class ReservationController extends AbstractController
      *
      * @return Response
      */
-    public function show(Reservation $reservation, ObjectManager $manager, Request $request){
+    public function show(Reservation $reservation, EntityManagerInterface $manager, Request $request){
 
         $commentaire = new Commentaire();
         $form = $this->createForm(CommentaireType::class, $commentaire);

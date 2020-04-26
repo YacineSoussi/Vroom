@@ -17,7 +17,7 @@ class ReservationType extends ApplicationType
         $builder
             ->add('startDate', DateType::class, $this->getConfiguration("Date d'arrivée", "Date à laquelle vous arriverez", ["widget" => "single_text"]))
             ->add('endDate', DateType::class, $this->getConfiguration("Date de départ", "Date à laquelle vous partirez",["widget" => "single_text"]))
-            ->add('commentaire', TextareaType::class, $this->getConfiguration(false, "Si vous avez un commentaire, n'hésitez pas à en faire part !", ["required" => false]))
+            ->add('commentaire', TextareaType::class, $this->getConfiguration(false, "Si vous avez un commentaire, n'hésitez pas à en faire part ! Veuillez également nous laisser vos coordonnées pour que l'on puisse vous recontacter ", ["required" => false]))
            
         ;
     }
